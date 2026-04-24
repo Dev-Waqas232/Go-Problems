@@ -32,6 +32,34 @@ func (stack *Stack[T]) peek() (T, error) {
 	return stack.item[len(stack.item)-1], nil
 }
 
+type Queue[T any] struct {
+	item []T
+}
+
+func (queue *Queue[T]) enqueue(val T) {
+	queue.item = append(queue.item, val)
+}
+
+func (queue *Queue[T]) dequeue() (T, error) {
+	if len(queue.item) <= 0 {
+		var zero T
+		return zero, errors.New("Queue is empty")
+	}
+
+	itemToRemove := queue.item[0]
+	queue.item = queue.item[1:]
+	return itemToRemove, nil
+}
+
+func (queue *Queue[T]) peekQueue() (T, error) {
+	if len(queue.item) <= 0 {
+		var zero T
+		return zero, errors.New("Queue is empty")
+	}
+
+	return queue.item[0], nil
+}
+
 func main() {
 	s := Stack[int]{}
 }
